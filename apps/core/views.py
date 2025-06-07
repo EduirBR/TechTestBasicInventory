@@ -38,3 +38,6 @@ def products(request):
     """
     return render(request, 'products.html')
 
+def inventory(request):
+    return render(request, 'inventory.html')
+

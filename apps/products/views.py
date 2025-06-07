@@ -1,4 +1,5 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,7 +7,7 @@ from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 
 from .models import ProductModel, InventoryModel
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, InventoryWithProductSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -42,4 +43,18 @@ class ProductViewSet(ModelViewSet):
             )
         
         return super().destroy(request, *args, **kwargs)
+
+
+class InventoryViewSet(ReadOnlyModelViewSet, UpdateModelMixin):
+    """
+    ViewSet for managing inventory.
+    """
+    queryset = InventoryModel.objects.select_related('fk_product').all()
+    serializer_class = InventoryWithProductSerializer
+    permission_classes = [IsAuthenticated]
+    serializer_class = InventoryWithProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return InventoryModel.objects.select_related('fk_product').all()
 

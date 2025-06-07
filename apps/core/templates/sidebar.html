@@ -27,7 +27,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white {% if request.path == '/inventory' %}active{% endif %}"
+                        href="/inventory">
                         <i class="bi bi-clipboard-data me-2"></i>
                         <span class="sidebar-text">Inventario</span>
                     </a>
