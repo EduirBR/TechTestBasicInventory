@@ -124,10 +124,10 @@
 
 {% block modules %}
 <li class="nav-item">
-    <a class="nav-link" href="/products/">Productos</a>
+    <a class="nav-link" href="/products">Productos</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="/clients/">Clientes</a>
+    <a class="nav-link" href="/clients">Clientes</a>
 </li>
 {% endblock %}
 
@@ -192,7 +192,7 @@
         async function getUserProfile() {
             try {
                 const token = localStorage.getItem('accessToken');
-                const response = await fetch('/api/profile/', {
+                const response = await fetch('/api/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

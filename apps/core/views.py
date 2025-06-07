@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-
+from django.contrib.auth.decorators import login_required
+from rest_framework_simplejwt.tokens import AccessToken
+from django.http import HttpRequest
 
 # Create your views here.
 
@@ -26,4 +27,8 @@ def logout(request):
     """
     messages.success(request, 'Has cerrado sesión exitosamente')
     return redirect('login')
+
+
+def clients(request):
+    return render(request, 'clients.html')
 

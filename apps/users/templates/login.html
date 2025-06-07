@@ -50,7 +50,7 @@
                     </form>
 
                     <div class="text-center mt-4">
-                        <p class="mb-0">¿No tienes una cuenta? <a href="/register/" class="text-primary">Regístrate
+                        <p class="mb-0">¿No tienes una cuenta? <a href="/register" class="text-primary">Regístrate
                                 aquí</a>
                         </p>
                     </div>
@@ -107,7 +107,7 @@
         };
 
         try {
-            const response = await fetch('/api/token/', {
+            const response = await fetch('/api/token', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

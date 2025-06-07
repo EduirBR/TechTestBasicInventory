@@ -10,7 +10,7 @@ async function checkAuth() {
 
     try {
         // Verificar el token con el endpoint de validación
-        const response = await fetch("/api/token/verify/", {
+        const response = await fetch("/api/token/verify", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -51,16 +51,15 @@ async function protectPage() {
 
 // Función para cerrar sesión
 async function logout() {
-    console.log("Cerrando sesión...");
     try {
         // Primero eliminar los tokens
         localStorage.clear(); // Elimina todos los items del localStorage
         // Redirigir al endpoint de logout
-        window.location.href = "/logout/";
+        window.location.href = "/logout";
     } catch (error) {
         console.error("Error al cerrar sesión:", error);
         // Si hay un error, forzar la redirección
-        window.location.href = "/login/";
+        window.location.href = "/login";
     }
 }
 

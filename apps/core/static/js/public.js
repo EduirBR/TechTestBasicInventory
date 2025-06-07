@@ -5,7 +5,7 @@ async function checkPublicAccess() {
     // Si hay token, verificar si es válido
     if (accessToken) {
         try {
-            const response = await fetch("/api/token/verify/", {
+            const response = await fetch("/api/token/verify", {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
