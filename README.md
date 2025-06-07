@@ -8,11 +8,7 @@
 ## Instalación
 
 ```bash
-# Clonar y entrar al proyecto
-git clone <url-del-repositorio>
-cd TechTest
-
-# Crear entorno virtual
+# Crear entorno virtual, python3 para linux
 python -m venv env
 
 # Activar entorno virtual
@@ -26,9 +22,6 @@ pip install -r requirements.txt
 
 # Migrar base de datos
 python manage.py migrate
-
-# Crear superusuario (opcional)
-python manage.py createsuperuser
 ```
 
 ## Ejecutar
