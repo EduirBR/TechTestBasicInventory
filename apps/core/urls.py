@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import index, login, register, dashboard, logout, clients
+from .views import index, login, register, dashboard, logout, clients, products
 
 urlpatterns = [
     path('', index, name='index'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('dashboard', dashboard, name='dashboard'),
     path('logout', logout, name='logout'),
     path('clients', clients, name='clients'),
+    path('products', products, name='products'),
 ]

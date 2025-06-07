@@ -32,3 +32,9 @@ def logout(request):
 def clients(request):
     return render(request, 'clients.html')
 
+def products(request):
+    """
+    Vista para mostrar la lista de productos.
+    """
+    return render(request, 'products.html')
+
