@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import index, login, register, dashboard, logout, clients, products, inventory
+from .views import index, login, register, dashboard, logout, clients, products, inventory, DashboardStatsView
 
 urlpatterns = [
     path('', index, name='index'),
@@ -11,4 +11,7 @@ urlpatterns = [
     path('clients', clients, name='clients'),
     path('products', products, name='products'),
     path('inventory', inventory, name='inventory'),
+    
+    # API endpoints
+    path('api/dashboard/stats/', DashboardStatsView.as_view(), name='dashboard-stats'),
 ]

@@ -21,7 +21,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/products">
+                    <a class="nav-link text-white {% if request.path == '/products' %}active{% endif %}"
+                        href="/products">
                         <i class="bi bi-box-seam me-2"></i>
                         <span class="sidebar-text">Productos</span>
                     </a>

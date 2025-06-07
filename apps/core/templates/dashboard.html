@@ -81,62 +81,112 @@
     /* Dashboard styles */
     .dashboard-container {
         padding: 2rem;
+        background-color: #f8f9fa;
+        min-height: 100vh;
     }
 
+    .stats-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease-in-out;
+        border-left: 4px solid;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stats-card.products {
+        border-left-color: #4e73df;
+    }
+
+    .stats-card.inventory {
+        border-left-color: #1cc88a;
+    }
+
+    .stats-card.clients {
+        border-left-color: #f6c23e;
+    }
+
+    .stats-icon {
+        font-size: 2rem;
+        opacity: 0.7;
+    }
+
+    .stats-number {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+
+    .stats-label {
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .welcome-section {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Dashboard navbar styles */
     .dashboard-navbar {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #dee2e6;
-        padding: 0.5rem 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        background: white;
+        border-bottom: 1px solid #e3e6f0;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .user-profile {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .user-avatar {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #e9ecef;
+        background: #4e73df;
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
+    .user-avatar i {
+        font-size: 1.2rem;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
     .user-info h2 {
-        margin: 0;
         font-size: 1rem;
-        color: #495057;
+        margin: 0;
+        color: #5a5c69;
+        font-weight: 600;
     }
 
     .user-info p {
-        margin: 0;
         font-size: 0.875rem;
-        color: #6c757d;
+        margin: 0;
+        color: #858796;
     }
 </style>
 {% endblock %}
 
-{% block modules %}
-<li class="nav-item">
-    <a class="nav-link" href="/products">Productos</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/clients">Clientes</a>
-</li>
-{% endblock %}
-
-
-{%block no_auth %}
-<li class="nav-item">
-    <a class="nav-link" href="#" onclick="authUtils.logout(); return false;">Cerrar Sesión</a>
-</li>
-{% endblock %}
 
 
 {% block content %}
@@ -152,17 +202,59 @@
                 </div>
                 <div class="user-info">
                     <h2 id="userName">Cargando...</h2>
+                    <span class="mx-2">•</span>
                     <p id="userEmail">Cargando...</p>
                 </div>
             </div>
-            <button onclick="authUtils.logout()" class="btn btn-outline-danger btn-sm">
-                <i class="bi bi-box-arrow-right"></i>
-                Cerrar Sesión
-            </button>
         </div>
         <div class="dashboard-container">
-            <div id="dashboard-content">
-                <!-- Dashboard content will be loaded here -->
+            <div class="welcome-section mb-4">
+                <h2 class="mb-0">¡Bienvenido al Panel de Control!</h2>
+                <p class="mb-0">Aquí encontrarás un resumen de tu negocio</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-xl-4 col-md-6">
+                    <div class="stats-card products">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stats-number" id="totalProducts">0</div>
+                                <div class="stats-label">Productos</div>
+                            </div>
+                            <div class="stats-icon text-primary">
+                                <i class="bi bi-box-seam"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="stats-card inventory">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stats-number" id="totalInventory">0</div>
+                                <div class="stats-label">Items en Inventario</div>
+                            </div>
+                            <div class="stats-icon text-success">
+                                <i class="bi bi-clipboard-data"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="stats-card clients">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stats-number" id="totalClients">0</div>
+                                <div class="stats-label">Clientes</div>
+                            </div>
+                            <div class="stats-icon text-warning">
+                                <i class="bi bi-people"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -231,6 +323,31 @@
                 }
             );
         }
+
+        // Load dashboard data
+        loadDashboardData();
     });
+
+    async function loadDashboardData() {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const response = await fetch('/api/dashboard/stats/', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('totalProducts').textContent = data.total_products;
+                document.getElementById('totalInventory').textContent = data.total_inventory;
+                document.getElementById('totalClients').textContent = data.total_clients;
+            } else {
+                throw new Error('Error al cargar los datos del dashboard');
+            }
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
+        }
+    }
 </script>
 {% endblock %}
